@@ -45,8 +45,15 @@ public class ProductRepositoryTest {
         ProductRepository repo = new ProductRepository();
 
         Assertions.assertThrows(NotFoundException.class, () -> {
-            repo.removeById(2);
+            repo.removeById(product2.getId());
         });
     }
 
+    
 }
+
+
+
+
+
+
