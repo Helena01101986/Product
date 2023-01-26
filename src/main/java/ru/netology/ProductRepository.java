@@ -18,12 +18,28 @@ public class ProductRepository {
         return products;
     }
 
+    public Product findById(int id) {
+        for (Product product : products) {
+            if (product.getId() == id) {
+                return product;
+            }
+        }
+        return null;
+    }
+
     public void removeById(int id) {
+        if (findById(id) == null) {
+            throw new NotFoundException(
+                    "Element with id: " + id + " not found"
+            );
+        }
+
+
         Product[] tmp = new Product[products.length - 1];
         int copyToIndex = 0;
-        for (Product filmName : products) {
-            if (filmName.getId() != id) {
-                tmp[copyToIndex] = filmName;
+        for (Product product : products) {
+            if (product.getId() != id) {
+                tmp[copyToIndex] = product;
                 copyToIndex++;
             }
         }

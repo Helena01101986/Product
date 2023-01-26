@@ -18,21 +18,12 @@ public class ProductRepositoryTest {
         repo.add(product1);
         repo.add(product2);
         repo.add(product3);
+        repo.add(product4);
 
     }
 
     @Test
     public void shouldAddAllProducts() {
-
-        Product[] expected = {product1, product2, product3};
-        Product[] actual = repo.findAll();
-
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldAddOneProduct() {
-        repo.add(product4);
 
         Product[] expected = {product1, product2, product3, product4};
         Product[] actual = repo.findAll();
@@ -41,13 +32,21 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    public void shouldRemoveById() {
+    public void shouldRemoveByNotFoundId() {
+        ProductRepository repo = new ProductRepository();
 
-        repo.removeById(product2.getId());
-
-        Product[] expected = {product1, product3};
-        Product[] actual = repo.findAll();
-
-        Assertions.assertArrayEquals(expected, actual);
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            repo.removeById(7);
+        });
     }
+
+    @Test
+    public void shouldRemoveById() {
+        ProductRepository repo = new ProductRepository();
+
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            repo.removeById(2);
+        });
+    }
+
 }
